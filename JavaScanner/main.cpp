@@ -7,9 +7,26 @@
 //
 
 #include <iostream>
+#include <string>
+#include <algorithm>
+#include <stack>
+#include <queue>
+#include <map>
+#include <vector>
+
+#include "SpecialBuffer.hpp"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    SpecailBuffer spb("/Users/joker/Desktop/BITMiniCC.java");
+    char ch;
+    
+    while((ch = spb.getNextChar()) != -1) {
+        cout<<ch;
+    }
+    
+    cout<<"finished"<<endl;
+    
     return 0;
 }

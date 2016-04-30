@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F391548E1CD4D14A002C67F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F391548D1CD4D14A002C67F0 /* main.cpp */; };
+		F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */; };
+		F39154991CD4DB64002C67F0 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154971CD4DB64002C67F0 /* Token.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,11 @@
 /* Begin PBXFileReference section */
 		F391548A1CD4D14A002C67F0 /* JavaScanner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JavaScanner; sourceTree = BUILT_PRODUCTS_DIR; };
 		F391548D1CD4D14A002C67F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "\U001dSpecialBuffer.cpp"; sourceTree = "<group>"; };
+		F39154951CD4D9CE002C67F0 /* SpecialBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "\U001dSpecialBuffer.hpp"; sourceTree = "<group>"; };
+		F39154971CD4DB64002C67F0 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Token.cpp; sourceTree = "<group>"; };
+		F39154981CD4DB64002C67F0 /* Token.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Token.hpp; sourceTree = "<group>"; };
+		F391549A1CD4DDBC002C67F0 /* PublicDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				F391548D1CD4D14A002C67F0 /* main.cpp */,
+				F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */,
+				F39154951CD4D9CE002C67F0 /* SpecialBuffer.hpp */,
+				F39154971CD4DB64002C67F0 /* Token.cpp */,
+				F39154981CD4DB64002C67F0 /* Token.hpp */,
+				F391549A1CD4DDBC002C67F0 /* PublicDefine.h */,
 			);
 			path = JavaScanner;
 			sourceTree = "<group>";
@@ -118,7 +130,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F39154991CD4DB64002C67F0 /* Token.cpp in Sources */,
 				F391548E1CD4D14A002C67F0 /* main.cpp in Sources */,
+				F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
