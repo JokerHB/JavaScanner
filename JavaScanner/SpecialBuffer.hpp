@@ -27,6 +27,9 @@ public:
 //  MARK: -get the char form the buffer
     char getNextChar();
     
+//  MARK: -back to the last char
+    void backSpace();
+    
 private:
 //  MARK: -reset the current buffer
     void resetBuffer(int bufId);

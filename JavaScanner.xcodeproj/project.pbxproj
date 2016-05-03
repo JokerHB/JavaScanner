@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F35797081CD7037200F737F2 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35797061CD7037200F737F2 /* Scanner.cpp */; };
 		F391548E1CD4D14A002C67F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F391548D1CD4D14A002C67F0 /* main.cpp */; };
 		F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */; };
 		F39154991CD4DB64002C67F0 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154971CD4DB64002C67F0 /* Token.cpp */; };
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F35797061CD7037200F737F2 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
+		F35797071CD7037200F737F2 /* Scanner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scanner.hpp; sourceTree = "<group>"; };
 		F391548A1CD4D14A002C67F0 /* JavaScanner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JavaScanner; sourceTree = BUILT_PRODUCTS_DIR; };
 		F391548D1CD4D14A002C67F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "\U001dSpecialBuffer.cpp"; sourceTree = "<group>"; };
@@ -70,6 +73,8 @@
 				F39154971CD4DB64002C67F0 /* Token.cpp */,
 				F39154981CD4DB64002C67F0 /* Token.hpp */,
 				F391549A1CD4DDBC002C67F0 /* PublicDefine.h */,
+				F35797061CD7037200F737F2 /* Scanner.cpp */,
+				F35797071CD7037200F737F2 /* Scanner.hpp */,
 			);
 			path = JavaScanner;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 			files = (
 				F39154991CD4DB64002C67F0 /* Token.cpp in Sources */,
 				F391548E1CD4D14A002C67F0 /* main.cpp in Sources */,
+				F35797081CD7037200F737F2 /* Scanner.cpp in Sources */,
 				F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +259,7 @@
 				F39154931CD4D14A002C67F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

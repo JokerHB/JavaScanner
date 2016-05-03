@@ -31,6 +31,7 @@ SpecailBuffer::SpecailBuffer(string filePath) {
 }
 
 SpecailBuffer::~SpecailBuffer() {
+    cout<<"buffer exit"<<endl;
     in.close();
 }
 
@@ -59,7 +60,7 @@ int SpecailBuffer::fillBuffer(int bufid) {
 
 char SpecailBuffer::getNextChar() {
 //  MARK: -check the buffer
-    if (pBuffer[bufferFlag] == BUFFER_SIZE - 1) {
+    if (pBuffer[bufferFlag] == BUFFER_SIZE) {
         bufferFlag ++;
         bufferFlag %= BUFFER_NUM;
         if (fillBuffer(bufferFlag) == -1) {
@@ -69,4 +70,10 @@ char SpecailBuffer::getNextChar() {
     
     return buffer[bufferFlag][pBuffer[bufferFlag] ++];
     
+}
+
+void SpecailBuffer::backSpace() {
+    pBuffer[bufferFlag] --;
+
+    pBuffer[bufferFlag] = pBuffer[bufferFlag] <= 0 ? 0 : pBuffer[bufferFlag];
 }
