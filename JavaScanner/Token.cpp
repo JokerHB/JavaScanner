@@ -26,6 +26,34 @@ int Token::typeCheck() {
         return 0x106;
     }
     
+    if (attribute[0] == '\"') {
+        return 0x109;
+    }
+    
+    if ((strcmp(attribute, "{") == 0) || (strcmp(attribute, "}")) == 0) {
+        return 0x121;
+    }
+    
+    if ((strcmp(attribute, "(") == 0) || (strcmp(attribute, ")")) == 0) {
+        return 0x11d;
+    }
+    
+    if ((strcmp(attribute, "[") == 0) || (strcmp(attribute, "]")) == 0) {
+        return 0x11d;
+    }
+    
+    if ((strcmp(attribute, ".") == 0)) {
+        return 0x11d;
+    }
+    
+    if ((strcmp(attribute, ",") == 0)) {
+        return 0x120;
+    }
+    
+    if ((strcmp(attribute, ";") == 0)) {
+        return 0x122;
+    }
+    
     for (int i = 0;i < 50;i ++) {
         if (strcmp(KEYWORDS[i], attribute) == 0) {
             return 0x103;
@@ -51,6 +79,24 @@ string Token::toString() {
             break;
         case 0x106:
             typeGBK = "字符型";
+            break;
+        case 0x109:
+            typeGBK = "字符串型";
+            break;
+        case 0x11d:
+            typeGBK = "界限符";
+            break;
+        case 0x120:
+            typeGBK = "界限符";
+            break;
+        case 0x121:
+            typeGBK = "界限符";
+            break;
+        case 0x122:
+            typeGBK = "界限符";
+            break;
+        case 0x101:
+            typeGBK = "错误的单词";
             break;
         default:
             typeGBK = "NULL";
