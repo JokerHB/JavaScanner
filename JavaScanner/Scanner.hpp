@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include "SpecialBuffer.hpp"
 #include "Token.hpp"
@@ -37,9 +38,6 @@ private:
 //  MARK: -reset the buffer
     void resetBuffer(int control);
     
-//  MARK: -specila buffer
-    SpecailBuffer buffer;
-    
 //  MARK: -add new token
     void addToken(int& linenumber, int& wordofline, char* wordBuffer, int type = 0);
     
@@ -51,6 +49,9 @@ private:
     
 //  MARK: -push a char into the wordBuffer;
     void pushBuffer(char ch);
+    
+//  MARK: -specila buffer
+    SpecailBuffer buffer;
     
 //  MARK: -word waitting for recognize
     char wordBuffer[MAX_WORD_LEN];

@@ -8,6 +8,10 @@
 
 #include "Scanner.hpp"
 
+Scanner::Scanner(string filePath): buffer(filePath) {
+    resetBuffer(1);
+}
+
 int Scanner::scan() {
     char ch = '\0';
     STATE state = Init;
@@ -523,10 +527,18 @@ int Scanner::scan() {
                 }
                 break;
                 
-            case ConstValue_Pow_End:
-                state = Init;
-                addToken(linenumber, wordofline, wordBuffer, 0x108);
+            case ConstValue_Pow_End: {
+                char _ch = wordBuffer[pWordBuffer - 1];
+                
+                if (isNumber(_ch)) {
+                    state = Init;
+                    addToken(linenumber, wordofline, wordBuffer, 0x108);
+                } else {
+                    state = Error;
+                }
+                
                 break;
+            }
                 
             case Operator_Plus:
                 if (ch == '+') {
@@ -859,7 +871,8 @@ int Scanner::scan() {
             case Error:
                 state = Init;
                 buffer.backSpace();
-                cout<<"error: "<<linenumber<<" " <<wordofline<<" "<<wordBuffer<<endl;
+                wordBuffer[pWordBuffer] = '\0';
+                cout<<"-error: line_"<<linenumber<<" no_" <<wordofline<<" "<<wordBuffer<<endl;
                 exit(1);
                 break;
         }
@@ -912,6 +925,8 @@ void Scanner::pushBuffer(char ch) {
     wordBuffer[pWordBuffer ++] = ch;
 }
 
-Scanner::Scanner(string filePath): buffer(filePath) {
-    resetBuffer(1);
+int Scanner::write(string filePath) {
+    
+    
+    return 0;
 }
