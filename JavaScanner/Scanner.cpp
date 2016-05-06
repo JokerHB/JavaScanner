@@ -871,9 +871,9 @@ int Scanner::scan() {
             case Error:
                 state = Init;
                 buffer.backSpace();
-                wordBuffer[pWordBuffer] = '\0';
+                addToken(linenumber, wordofline, wordBuffer, 0x101);
                 cout<<"-error: line_"<<linenumber<<" no_" <<wordofline<<" "<<wordBuffer<<endl;
-                exit(1);
+//                exit(1);
                 break;
         }
     }
