@@ -33,13 +33,17 @@ public:
     char attribute[MAX_WORD_LEN];
     
 //  MARK: -init the word
-    Token(int _linenum, int _no, char* _attribute);
+    Token(int _linenum, int _no, char* _attribute, int _type = 0);
     
 //  MARK: -check the word
     int typeCheck();
     
 //  AMRK: -to string for output
     string toString();
+    
+private:
+//  MARK: -judge the number
+    bool isNumber(char ch, NumType type = Dec);
 };
 
 #endif /* Token_hpp */

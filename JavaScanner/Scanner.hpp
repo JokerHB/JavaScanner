@@ -17,12 +17,6 @@
 #include "Token.hpp"
 #include "PublicDefine.h"
 
-enum NumType {
-    Dec,
-    Hex,
-    Oct
-};
-
 class Scanner {
 public:
     Scanner(string filePath);
@@ -46,11 +40,11 @@ private:
 //  MARK: -specila buffer
     SpecailBuffer buffer;
     
+//  MARK: -add new token
+    void addToken(int& linenumber, int& wordofline, char* wordBuffer, int type = 0);
+    
 //  MARK: -judge the number
     bool isNumber(char ch, NumType type = Dec);
-    
-//  MARK: -add new token
-    void addToken(int& linenumber, int& wordofline, char* wordBuffer);
 
 //  MARK: -new line, reset the line num and word of the line
     void setNewLine(int& linenumber, int& wordofline);
@@ -63,6 +57,9 @@ private:
     
 //  MARK: -pointer of the current word buffer
     int pWordBuffer;
+    
+//  MARK: -sum of the word
+    uInt sumOfword;
 };
 
 #endif /* Scanner_hpp */

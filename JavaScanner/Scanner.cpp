@@ -8,80 +8,6 @@
 
 #include "Scanner.hpp"
 
-enum STATE {
-    Init,
-    Keywords,
-    Char,
-    OctalNumber_1,
-    OctalNumber_2,
-    Hexadecimal_1,
-    Hexadecimal_2,
-    Hexadecimal_3,
-    Hexadecimal_4,
-    EscapedChar,
-    EndOfChar,
-    TermOfChar,
-    String,
-    EscapStr,
-    EndOfStr,
-    Separator,
-    Separator_Fork,
-    Backslash,
-    Operator_Div_Equal,
-    Single_Line_Comments,
-    Multipl_Line_Comments,
-    Multipl_Line_Comments_Pre_End,
-    ConstValue,
-    ConstValue_Int,
-    ConstValue_Int_Hex,
-    ConstValue_Int_Hex_End,
-    ConstValue_Int_End,
-    ConstValue_Pow,
-    ConstValue_Pow_End,
-    ConstValue_Float,
-    ConstValue_Float_End,
-    Operator_Plus,
-    Operator_Plus_Plus,
-    Operator_Plus_Equal,
-    Operator_Plus_Judge,
-    Operator_Minus,
-    Operator_Minus_Minus,
-    Operator_Minus_Equal,
-    Operator_Minus_Judge,
-    Operator_Multiply,
-    Operator_Multiply_Equal,
-    Operator_Mod,
-    Operator_Mod_Equal,
-    Operator_Eauql,
-    Operator_Eauql_Equal,
-    Operator_Xor,
-    Operator_Xor_Equal,
-    Operator_Not,
-    Operator_And,
-    Operator_And_And,
-    Operator_And_Equal,
-    Operator_Large,
-    Operator_Large_Equal,
-    Operator_Large_Large,
-    Operator_Large_Large_Large,
-    Operator_Small,
-    Operator_Small_Equal,
-    Operator_Small_Small,
-    Operator_Small_Small_Small,
-    Operator_Or,
-    Operator_Or_Or,
-    Operator_Or_Equal,
-    Operator_Exclamation,
-    Operator_Exclamation_Equal,
-    Operator_Ques,
-    Operator_Ques_End,
-    Error
-};
-
-Scanner::Scanner(string filePath): buffer(filePath) {
-    resetBuffer(1);
-}
-
 int Scanner::scan() {
     char ch = '\0';
     STATE state = Init;
@@ -417,7 +343,7 @@ int Scanner::scan() {
             case Separator:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Separator_Fork:
@@ -448,7 +374,7 @@ int Scanner::scan() {
             case Operator_Div_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline--;
+                //wordofline-- -reg;
                 break;
                 
             case Single_Line_Comments:
@@ -488,9 +414,12 @@ int Scanner::scan() {
                 if (ch == 'x' || ch == 'X') {
                     state = ConstValue_Int_Hex;
                     pushBuffer(ch);
-                } else {
+                } else if(isNumber(ch)) {
                     state = ConstValue_Int;
                     pushBuffer(ch);
+                } else {
+                    state = Init;
+                    addToken(linenumber, wordofline, wordBuffer);
                 }
                 break;
                 
@@ -527,13 +456,13 @@ int Scanner::scan() {
                 if (ch == 'l' || ch == 'L') {
                     state = Init;
                     pushBuffer(ch);
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    addToken(linenumber, wordofline, wordBuffer, 0x107);
+                    //wordofline -- -reg;
                     buffer.getNextChar();
                 } else {
                     state = Init;
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    addToken(linenumber, wordofline, wordBuffer, 0x107);
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -541,13 +470,19 @@ int Scanner::scan() {
                 if (ch == 'l' || ch == 'L' || ch == 'f' || ch == 'F') {
                     state = Init;
                     pushBuffer(ch);
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    int type = 0;
+                    if (ch == 'l' || ch == 'L') {
+                        type = 0x107;
+                    } else {
+                        type = 0x108;
+                    }
+                    addToken(linenumber, wordofline, wordBuffer, type);
+                    //wordofline -- -reg;
                     buffer.getNextChar();
                 } else {
                     state = Init;
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    addToken(linenumber, wordofline, wordBuffer, 0x107);
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -565,16 +500,16 @@ int Scanner::scan() {
                 if (ch == 'f' || ch == 'F') {
                     state = Init;
                     pushBuffer(ch);
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    addToken(linenumber, wordofline, wordBuffer, 0x108);
+                    //wordofline -- -reg;
                     buffer.getNextChar();
                 } else if (ch == 'e' || ch == 'E') {
                     state = ConstValue_Pow;
                     pushBuffer(ch);
                 } else {
                     state = Init;
-                    addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    addToken(linenumber, wordofline, wordBuffer, 0x108);
+                    //wordofline -- -reg;
                 }
                 break;
 
@@ -590,7 +525,7 @@ int Scanner::scan() {
                 
             case ConstValue_Pow_End:
                 state = Init;
-                addToken(linenumber, wordofline, wordBuffer);
+                addToken(linenumber, wordofline, wordBuffer, 0x108);
                 break;
                 
             case Operator_Plus:
@@ -609,13 +544,13 @@ int Scanner::scan() {
             case Operator_Plus_Plus:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Plus_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Plus_Judge:
@@ -627,7 +562,7 @@ int Scanner::scan() {
                 if(!isNumber(ch)) {  // plus
                     Token keyword(linenumber, wordofline++, "+");
                     tokens.push_back(keyword);
-                    wordofline --;
+                    //wordofline -- -reg;
                 } else { // positive
                     pushBuffer('+');
                 }
@@ -651,7 +586,7 @@ int Scanner::scan() {
             case Operator_Minus_Minus:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Minus_Equal:
@@ -668,7 +603,7 @@ int Scanner::scan() {
                 if(!isNumber(ch)) {  // minux
                     Token keyword(linenumber, wordofline++, "-");
                     tokens.push_back(keyword);
-                    wordofline --;
+                    //wordofline -- -reg;
                 } else { // ngitive
                     pushBuffer('-');
                 }
@@ -683,14 +618,14 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Multiply_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline--;
+                //wordofline-- -reg;
                 break;
                 
             case Operator_Mod:
@@ -700,14 +635,14 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Mod_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Eauql:
@@ -717,20 +652,20 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Eauql_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Not:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_And:
@@ -743,20 +678,20 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_And_And:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_And_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Xor:
@@ -766,14 +701,14 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Xor_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Or:
@@ -786,20 +721,20 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Or_Or:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Or_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Large:
@@ -812,7 +747,7 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -826,7 +761,7 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -837,14 +772,14 @@ int Scanner::scan() {
                 } else { // >>>
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Large_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Small:
@@ -857,7 +792,7 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -871,7 +806,7 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
@@ -882,14 +817,14 @@ int Scanner::scan() {
                 } else { // <<<
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Small_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Exclamation:
@@ -899,26 +834,26 @@ int Scanner::scan() {
                 } else {
                     state = Init;
                     addToken(linenumber, wordofline, wordBuffer);
-                    wordofline --;
+                    //wordofline -- -reg;
                 }
                 break;
                 
             case Operator_Exclamation_Equal:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Ques:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Operator_Ques_End:
                 state = Init;
                 addToken(linenumber, wordofline, wordBuffer);
-                wordofline --;
+                //wordofline -- -reg;
                 break;
                 
             case Error:
@@ -943,12 +878,13 @@ void Scanner::resetBuffer(int control) {
     }
 }
 
-void Scanner::addToken(int& linenumber, int& wordofline, char* wordBuffer) {
+void Scanner::addToken(int& linenumber, int& wordofline, char* wordBuffer, int type) {
     buffer.backSpace();
     wordBuffer[pWordBuffer] = '\0';
-    Token keyword(linenumber, wordofline++, wordBuffer);
+    Token keyword(linenumber, wordofline++, wordBuffer, type);
     tokens.push_back(keyword);
     resetBuffer(1);
+    sumOfword ++;
 }
 
 bool Scanner::isNumber(char ch, NumType type) {
@@ -974,4 +910,8 @@ void Scanner::setNewLine(int& linenumber, int& wordofline) {
 
 void Scanner::pushBuffer(char ch) {
     wordBuffer[pWordBuffer ++] = ch;
+}
+
+Scanner::Scanner(string filePath): buffer(filePath) {
+    resetBuffer(1);
 }
