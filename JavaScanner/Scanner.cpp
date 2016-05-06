@@ -65,11 +65,16 @@ enum STATE {
     Operator_Large_Large,
     Operator_Large_Large_Large,
     Operator_Small,
+    Operator_Small_Equal,
+    Operator_Small_Small,
+    Operator_Small_Small_Small,
     Operator_Or,
     Operator_Or_Or,
     Operator_Or_Equal,
     Operator_Exclamation,
     Operator_Exclamation_Equal,
+    Operator_Ques,
+    Operator_Ques_End,
     Error
 };
 
@@ -83,7 +88,7 @@ int Scanner::scan() {
     int linenumber = 1;
     int wordofline = 1;
     
-    while ((ch = buffer.getNextChar()) != -1) {
+    while ((ch = buffer.getNextChar()) != -1 && ch != '\0') {
         switch (state) {
             case Init:
                 if ((ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || ch == '$' || ch == '_') {
@@ -225,6 +230,54 @@ int Scanner::scan() {
                             pushBuffer(ch);
                             break;
                             
+                        case '?':
+                            state = Operator_Ques;
+                            pushBuffer(ch);
+                            break;
+                            
+                        case '@':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case ':':
+                            state = Operator_Ques_End;
+                            pushBuffer(ch);
+                            break;
+                            
+                        case ' ':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case '\b':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case '\f':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case '\r':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case '\t':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        case '#':
+                            state = Init;
+                            resetBuffer(1);
+                            break;
+                            
+                        default:
+                            state = Error;
+                            break;
                     }
                 }
                 break;
@@ -794,6 +847,51 @@ int Scanner::scan() {
                 wordofline --;
                 break;
                 
+            case Operator_Small:
+                if (ch == '=') {
+                    state = Operator_Small_Equal;
+                    pushBuffer(ch);
+                } else if (ch == '<') {
+                    state = Operator_Small_Small;
+                    pushBuffer(ch);
+                } else {
+                    state = Init;
+                    addToken(linenumber, wordofline, wordBuffer);
+                    wordofline --;
+                }
+                break;
+                
+            case Operator_Small_Small:
+                if (ch == '=') { // <<=
+                    state = Operator_Small_Equal;
+                    pushBuffer(ch);
+                } else if (ch == '<') { // <<<
+                    state = Operator_Small_Small_Small;
+                    pushBuffer(ch);
+                } else {
+                    state = Init;
+                    addToken(linenumber, wordofline, wordBuffer);
+                    wordofline --;
+                }
+                break;
+                
+            case Operator_Small_Small_Small:
+                if (ch == '=') { // <<<=
+                    state = Operator_Small_Equal;
+                    pushBuffer(ch);
+                } else { // <<<
+                    state = Init;
+                    addToken(linenumber, wordofline, wordBuffer);
+                    wordofline --;
+                }
+                break;
+                
+            case Operator_Small_Equal:
+                state = Init;
+                addToken(linenumber, wordofline, wordBuffer);
+                wordofline --;
+                break;
+                
             case Operator_Exclamation:
                 if (ch == '=') {
                     state = Operator_Exclamation_Equal;
@@ -811,10 +909,22 @@ int Scanner::scan() {
                 wordofline --;
                 break;
                 
+            case Operator_Ques:
+                state = Init;
+                addToken(linenumber, wordofline, wordBuffer);
+                wordofline --;
+                break;
+                
+            case Operator_Ques_End:
+                state = Init;
+                addToken(linenumber, wordofline, wordBuffer);
+                wordofline --;
+                break;
+                
             case Error:
                 state = Init;
                 buffer.backSpace();
-                cout<<linenumber<<" " <<wordofline<<" " <<"error"<<endl;
+                cout<<"error: "<<linenumber<<" " <<wordofline<<" "<<wordBuffer<<endl;
                 exit(1);
                 break;
         }
