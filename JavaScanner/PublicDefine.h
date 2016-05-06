@@ -9,7 +9,8 @@
 #ifndef PublicDefien_h
 #define PublicDefien_h
 
-#define BUFFER_SIZE         256
+#define BUFFER_SIZE         512
+#define BUFFER_HALF_SIZE    256
 #define BUFFER_NUM          2
 
 #define MAX_WORD_LEN        256

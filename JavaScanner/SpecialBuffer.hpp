@@ -38,7 +38,7 @@ private:
     int fillBuffer(int bufid);
     
 //  MARK: -buffer define
-    char buffer[BUFFER_NUM][BUFFER_SIZE];
+    char buffer[BUFFER_NUM][BUFFER_HALF_SIZE];
     
 //  MARK: -buffer point
     int pBuffer[BUFFER_NUM];

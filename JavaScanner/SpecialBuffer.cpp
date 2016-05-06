@@ -36,7 +36,7 @@ SpecailBuffer::~SpecailBuffer() {
 }
 
 void SpecailBuffer::resetBuffer(int bufid) {
-    memset(buffer[bufid], 0, BUFFER_SIZE * sizeof(char));
+    memset(buffer[bufid], 0, BUFFER_HALF_SIZE * sizeof(char));
     pBuffer[bufid] = 0;
 }
 
@@ -45,7 +45,7 @@ int SpecailBuffer::fillBuffer(int bufid) {
     
     if (in.good()) {
         try {
-            in.read(buffer[bufid], BUFFER_SIZE);
+            in.read(buffer[bufid], BUFFER_HALF_SIZE);
         } catch(...) {
             cout<<"can not read from the buffer"<<endl;
             resetBuffer(bufid);
@@ -60,7 +60,7 @@ int SpecailBuffer::fillBuffer(int bufid) {
 
 char SpecailBuffer::getNextChar() {
 //  MARK: -check the buffer
-    if (pBuffer[bufferFlag] == BUFFER_SIZE) {
+    if (pBuffer[bufferFlag] == BUFFER_HALF_SIZE) {
         bufferFlag ++;
         bufferFlag %= BUFFER_NUM;
         if (fillBuffer(bufferFlag) == -1) {

@@ -62,7 +62,7 @@ private:
     char wordBuffer[MAX_WORD_LEN];
     
 //  MARK: -pointer of the current word buffer
-    int pWrodBuffer;
+    int pWordBuffer;
 };
 
 #endif /* Scanner_hpp */
