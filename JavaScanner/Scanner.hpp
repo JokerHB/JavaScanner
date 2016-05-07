@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <time.h>
 
 #include "SpecialBuffer.hpp"
 #include "Token.hpp"

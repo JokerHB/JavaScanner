@@ -18,7 +18,7 @@ int Scanner::scan() {
     int linenumber = 1;
     int wordofline = 1;
     
-    while ((ch = buffer.getNextChar()) != -1 && ch != '\0') {
+    while ((ch = buffer.getNextChar()) != -1 && ch != 0) {
         switch (state) {
             case Init:
                 if ((ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || ch == '$' || ch == '_') {
@@ -878,6 +878,11 @@ int Scanner::scan() {
         }
     }
     
+    if (state != Init) {
+        addToken(linenumber, wordofline, wordBuffer, 0x101);
+        cout<<"-error: line_"<<linenumber<<" no_" <<wordofline<<" "<<wordBuffer<<endl;
+    }
+    
     return -1;
 }
 
@@ -922,11 +927,34 @@ void Scanner::setNewLine(int& linenumber, int& wordofline) {
 }
 
 void Scanner::pushBuffer(char ch) {
+    if (pWordBuffer == MAX_WORD_LEN) {
+        pWordBuffer -= 1;
+        return;
+    }
     wordBuffer[pWordBuffer ++] = ch;
 }
 
 int Scanner::write(string filePath) {
+    ofstream writer(filePath);
     
+    if (writer.is_open()) {
+        time_t t = time(0);
+        char tmp[64];
+        strftime(tmp, sizeof(tmp), "%Y/%m/%d %X %A", localtime(&t) );
+        
+        writer<<"/******************OutputFile******************/"<<endl;
+        writer<< tmp<<"||Total Words: "<<sumOfword<<endl;
+        writer<<"[L:W]     TypeID    Type      Value             " <<endl;
+        writer<<"/**********************************************/"<<endl;
+        
+        for (int i = 0 ; i < tokens.size(); i ++) {
+            writer<<tokens[i].toString();
+        }
+    } else {
+        cout<<"can not create " << filePath <<" please try it again"<<endl;
+        exit(1);
+    }
+    writer.close();
     
     return 0;
 }

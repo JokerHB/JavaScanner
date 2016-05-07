@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F35797081CD7037200F737F2 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35797061CD7037200F737F2 /* Scanner.cpp */; };
-		F391548E1CD4D14A002C67F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F391548D1CD4D14A002C67F0 /* main.cpp */; };
+		F391548E1CD4D14A002C67F0 /* JavaScanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F391548D1CD4D14A002C67F0 /* JavaScanner.cpp */; };
 		F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */; };
 		F39154991CD4DB64002C67F0 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39154971CD4DB64002C67F0 /* Token.cpp */; };
 /* End PBXBuildFile section */
@@ -29,7 +29,7 @@
 		F35797061CD7037200F737F2 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
 		F35797071CD7037200F737F2 /* Scanner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scanner.hpp; sourceTree = "<group>"; };
 		F391548A1CD4D14A002C67F0 /* JavaScanner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JavaScanner; sourceTree = BUILT_PRODUCTS_DIR; };
-		F391548D1CD4D14A002C67F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F391548D1CD4D14A002C67F0 /* JavaScanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JavaScanner.cpp; sourceTree = "<group>"; };
 		F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "\U001dSpecialBuffer.cpp"; sourceTree = "<group>"; };
 		F39154951CD4D9CE002C67F0 /* SpecialBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "\U001dSpecialBuffer.hpp"; sourceTree = "<group>"; };
 		F39154971CD4DB64002C67F0 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Token.cpp; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		F391548C1CD4D14A002C67F0 /* JavaScanner */ = {
 			isa = PBXGroup;
 			children = (
-				F391548D1CD4D14A002C67F0 /* main.cpp */,
+				F391548D1CD4D14A002C67F0 /* JavaScanner.cpp */,
 				F39154941CD4D9CE002C67F0 /* SpecialBuffer.cpp */,
 				F39154951CD4D9CE002C67F0 /* SpecialBuffer.hpp */,
 				F39154971CD4DB64002C67F0 /* Token.cpp */,
@@ -136,7 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39154991CD4DB64002C67F0 /* Token.cpp in Sources */,
-				F391548E1CD4D14A002C67F0 /* main.cpp in Sources */,
+				F391548E1CD4D14A002C67F0 /* JavaScanner.cpp in Sources */,
 				F35797081CD7037200F737F2 /* Scanner.cpp in Sources */,
 				F39154961CD4D9CE002C67F0 /* SpecialBuffer.cpp in Sources */,
 			);

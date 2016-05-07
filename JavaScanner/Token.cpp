@@ -200,7 +200,7 @@ string Token::toString() {
             break;
     }
     
-    sprintf(buffer, "[%d,%d] %0x <%s> %s\n", linenum, no, type, typeGBK, attribute);
+    sprintf(buffer, "[%d : %d]    %0x     <%s>     %s\n", linenum, no, type, typeGBK, attribute);
     
     return string(buffer);
 }
